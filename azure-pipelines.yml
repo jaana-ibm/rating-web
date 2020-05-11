@@ -1,9 +1,4 @@
 # Node.js with webpack
-- task: oc-cmd@2
-  inputs:
-    connectionType: 'OpenShift Connection Service'
-    openshiftService: 'My OpenShift'
-    cmd: 'oc start-build raiting-web --follow'
 # Build a Node.js project using the webpack CLI.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -15,15 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
+- task: oc-cmd@2
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install -g webpack webpack-cli --save-dev
-    npm install
-    npx webpack --config webpack.config.js
-  displayName: 'npm install, run webpack'
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'My OpenShift'
+    cmd: 'oc start-build raiting-api --follow'
 
 
